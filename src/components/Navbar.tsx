@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import Logo from '../assets/logo.svg';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import egoLogo from "../assets/logo.png";
 
 // Navbar Component
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -16,59 +18,119 @@ export const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const stored = window.localStorage.getItem("ego-dark-mode");
+    const enabled = stored === "true";
+    setDarkMode(enabled);
+    document.documentElement.classList.toggle("dark", enabled);
+    document.documentElement.classList.toggle("light", !enabled);
+  }, []);
+
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => {
+      const next = !prev;
+      window.localStorage.setItem("ego-dark-mode", String(next));
+      document.documentElement.classList.toggle("dark", next);
+      document.documentElement.classList.toggle("light", !next);
+      return next;
+    });
+  };
+
+  const anchorTarget = (id: string) =>
+    location.pathname === "/"
+      ? { hash: `#${id}` }
+      : { pathname: "/", hash: `#${id}` };
+
   return (
-   <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-[#1a1d29]/90 backdrop-blur-xl border-b border-white/5' : ' bg-[#1a1d29]'} `}>
-      <div className="max-w-[1400px] mx-auto px-8 py-5">
+    <nav
+      className={`fixed w-full z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-white/90 backdrop-blur-xl border-b border-[#E2E8F0] dark:bg-[#111827]/90 dark:border-slate-700"
+          : "bg-transparent dark:bg-transparent"
+      }`}
+    >
+      <div className="max-w-[1200px] mx-auto px-6 lg:px-10 py-5">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            {/* <div className="relative">
-              <div className="w-11 h-11 bg-gradient-to-br from-[#FCD535] via-[#FF8C42] to-[#FCD535] rounded-2xl flex items-center justify-center transform -rotate-12 shadow-lg shadow-[#FCD535]/20">
-                <div className="transform rotate-12">
-                  <img src={Logo} alt="EGO Logo" width="24" height="24" />
-                </div>
-              </div>
-              <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-[#FF8C42] rounded-full animate-pulse" />
-            </div> */}
-            <div>
-              <h1 className="text-xl lg:text-2xl text-amber-500 font-black tracking-tight">EGO</h1>
+          <Link to="/" className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 ring-1 ring-black/10 shadow-sm dark:bg-[#1f2937] dark:ring-white/10">
+              <img
+                src={egoLogo}
+                alt="Ego logo"
+                className="h-8 w-8 object-contain"
+              />
             </div>
+            <div>
+              <h1 className="text-lg lg:text-xl font-black tracking-tight text-black dark:text-white">
+                Ego Transit
+              </h1>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+                Enterprise Platform
+              </p>
+            </div>
+          </Link>
+
+          <div className="hidden lg:flex items-center gap-8 text-sm text-slate-600 dark:text-slate-300">
+            <Link to={anchorTarget("home")} className="hover:text-[#F59E0B] transition-colors">
+              Home
+            </Link>
+            <Link to={anchorTarget("how")} className="hover:text-[#F59E0B] transition-colors">
+              How it works
+            </Link>
+            <Link to={anchorTarget("users")} className="hover:text-[#F59E0B] transition-colors">
+              User types
+            </Link>
+            <Link to={anchorTarget("benefits")} className="hover:text-[#F59E0B] transition-colors">
+              Benefits
+            </Link>
+            <Link to={anchorTarget("demo")} className="hover:text-[#F59E0B] transition-colors">
+              Live demo
+            </Link>
+            <Link to={anchorTarget("pricing")} className="hover:text-[#F59E0B] transition-colors">
+              Pricing
+            </Link>
           </div>
 
-          <div className="hidden lg:flex items-center gap-10 text-white">
-            <a href="#home" className="text-sm  hover:text-amber-500 transition-colors relative group">
-              Home
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#FCD535] group-hover:w-full transition-all duration-300" />
-            </a>
-            <a href="#features" className="text-sm  hover:text-amber-500 transition-colors relative group">
-              How It Works
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#FCD535] group-hover:w-full transition-all duration-300" />
-            </a>
-            <a href="#pricing" className="text-sm  hover:text-amber-500 transition-colors relative group">
-              Solutions
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#FCD535] group-hover:w-full transition-all duration-300" />
-            </a>
-            <Link to="/demo" className="text-sm  hover:text-amber-500 transition-colors relative group">
-              Demo
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#FCD535] group-hover:w-full transition-all duration-300" />
-            </Link>
-            <button className="px-6 py-3 text-white font-bold rounded-md bg-amber-500 hover:bg-amber-600 transition-colors">
-              Get Started
+          <div className="hidden lg:flex items-center gap-3">
+            <button
+              onClick={toggleDarkMode}
+              className="min-h-[44px] min-w-[44px] rounded-full border border-[#E2E8F0] bg-white text-slate-700 hover:border-[#F59E0B] hover:text-[#F59E0B] dark:border-slate-700 dark:bg-[#1f2937] dark:text-slate-200"
+              aria-label="Toggle dark mode"
+              aria-pressed={darkMode}
+            >
+              {darkMode ? <Sun size={18} className="mx-auto" /> : <Moon size={18} className="mx-auto" />}
+            </button>
+            <button className="min-h-[44px] rounded-full bg-[#F59E0B] px-5 py-2 text-sm font-semibold text-black shadow-lg shadow-amber-500/30 transition hover:bg-[#FBBF24]">
+              Start Free Trial
             </button>
           </div>
 
-          <button className="lg:hidden text-gray-800" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <button
+            className="lg:hidden text-slate-700 dark:text-slate-200"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation"
+          >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-6 pb-6 space-y-4 border-t border-white/5 pt-6">
-            <a href="#home" className="block text-gray-600 hover:text-amber-500 transition-colors">Home</a>
-            <a href="#features" className="block text-gray-600 hover:text-amber-500 transition-colors">How It Works</a>
-            <a href="#pricing" className="block text-gray-600 hover:text-amber-500 transition-colors">Pricing</a>
-            <Link to="/demo" className="block text-gray-600 hover:text-amber-500 transition-colors">Demo</Link>
-            <button className="w-full px-6 py-3 text-white font-bold rounded-md mt-2 bg-amber-500 hover:bg-amber-600 transition-colors">
-              Get Started
+          <div className="lg:hidden mt-6 pb-6 space-y-4 border-t border-[#E2E8F0] pt-6 text-sm text-slate-600 dark:border-slate-700 dark:text-slate-300">
+            <Link to={anchorTarget("home")} className="block hover:text-[#F59E0B] transition-colors" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+            <Link to={anchorTarget("how")} className="block hover:text-[#F59E0B] transition-colors" onClick={() => setMobileMenuOpen(false)}>How it works</Link>
+            <Link to={anchorTarget("users")} className="block hover:text-[#F59E0B] transition-colors" onClick={() => setMobileMenuOpen(false)}>User types</Link>
+            <Link to={anchorTarget("benefits")} className="block hover:text-[#F59E0B] transition-colors" onClick={() => setMobileMenuOpen(false)}>Benefits</Link>
+            <Link to={anchorTarget("demo")} className="block hover:text-[#F59E0B] transition-colors" onClick={() => setMobileMenuOpen(false)}>Live demo</Link>
+            <Link to={anchorTarget("pricing")} className="block hover:text-[#F59E0B] transition-colors" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
+            <button
+              onClick={toggleDarkMode}
+              className="w-full min-h-[44px] rounded-full border border-[#E2E8F0] bg-white text-slate-700 hover:border-[#F59E0B] hover:text-[#F59E0B] dark:border-slate-700 dark:bg-[#1f2937] dark:text-slate-200"
+              aria-label="Toggle dark mode"
+              aria-pressed={darkMode}
+            >
+              {darkMode ? "Light mode" : "Dark mode"}
+            </button>
+            <button className="w-full min-h-[44px] rounded-full bg-[#F59E0B] px-5 py-2 text-sm font-semibold text-black shadow-lg shadow-amber-500/30 transition hover:bg-[#FBBF24]">
+              Start Free Trial
             </button>
           </div>
         )}
