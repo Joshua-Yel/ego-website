@@ -36,19 +36,19 @@ const ContactUsPage = () => {
                   For general inquiries:
                 </p>
                 <a
-                  href="mailto:hello@ego-transit.app"
+                  href="mailto:business@innewgen.com"
                   className="text-sm font-semibold text-[#F59E0B] hover:underline"
                 >
-                  hello@ego-transit.app
+                  business@innewgen.com
                 </a>
                 <p className="mt-4 text-sm text-slate-600 dark:text-slate-300">
                   For support:
                 </p>
-                <a
-                  href="mailto:support@ego-transit.app"
+                  <a
+                    href="mailto:support@innewgen.com"
                   className="text-sm font-semibold text-[#F59E0B] hover:underline"
                 >
-                  support@ego-transit.app
+                  support@innewgen.com
                 </a>
               </div>
 
@@ -60,7 +60,7 @@ const ContactUsPage = () => {
                   Our lines are open from 9 AM to 6 PM, Monday to Friday.
                 </p>
                 <p className="mt-4 text-sm font-semibold text-slate-800 dark:text-slate-200">
-                  +63 2 8000 1234
+                  +63 995 348 9923
                 </p>
               </div>
 
@@ -69,10 +69,10 @@ const ContactUsPage = () => {
                   Our Office
                 </h3>
                 <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-                  123 Innovation Drive
+                  Parang
                 </p>
                 <p className="text-sm text-slate-600 dark:text-slate-300">
-                  Bonifacio Global City, Taguig
+                  Marikina City
                 </p>
                 <p className="text-sm text-slate-600 dark:text-slate-300">
                   Metro Manila, Philippines

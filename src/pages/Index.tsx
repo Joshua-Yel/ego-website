@@ -4,6 +4,7 @@ import {
   Bell,
   Bus,
   CalendarCheck,
+  Car,
   CheckCircle2,
   Clock,
   CreditCard,
@@ -137,7 +138,7 @@ const testimonials = [
 const pricing = [
   {
     name: "Starter",
-    price: "₱24,900",
+    price: "Contact Sales",
     description: "For growing fleets and regional routes.",
     features: [
       "Up to 50 vehicles",
@@ -148,7 +149,7 @@ const pricing = [
   },
   {
     name: "Growth",
-    price: "₱69,900",
+    price: "Contact Sales",
     description: "For multi-route operators and agencies.",
     features: [
       "Up to 300 vehicles",
@@ -224,7 +225,7 @@ const Index = () => {
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-[#E2E8F0] bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-600 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-[#1f2937]/80 dark:text-slate-300">
-                <Sparkles className="h-4 w-4 text-[#F59E0B]" />
+                <Bus className="h-4 w-4 text-[#F59E0B]" />
                 Smart, real-time transit platform
               </div>
               <h1 className="mt-6 text-4xl font-black leading-tight tracking-tight text-black dark:text-white sm:text-5xl lg:text-6xl">
