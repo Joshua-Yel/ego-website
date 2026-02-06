@@ -27,25 +27,25 @@
     /* Semantic Design Tokens */
     --background: var(--ego-white);
     --foreground: var(--ego-dark);
-    
+
     --primary: var(--ego-sunflower);
     --primary-foreground: var(--ego-dark);
     --primary-glow: 45 100% 70%;
-    
+
     --secondary: 50 96% 66%;
     --secondary-foreground: var(--ego-dark);
     --secondary-glow: 50 96% 76%;
-    
+
     --accent: 39 92% 53%;
     --accent-foreground: var(--ego-white);
     --accent-glow: 39 92% 63%;
-    
+
     --muted: 220 13% 96%;
     --muted-foreground: var(--ego-gray);
-    
+
     --card: var(--ego-white);
     --card-foreground: var(--ego-dark);
-    
+
     --border: 220 13% 91%;
     --input: 220 13% 95%;
     --ring: var(--ego-mint);
@@ -55,7 +55,7 @@
     --gradient-warm: linear-gradient(135deg, hsl(var(--ego-cream)), hsl(var(--ego-orange)));
     --gradient-transit: linear-gradient(90deg, hsl(var(--ego-mint)), hsl(var(--ego-amber)));
     --gradient-radial: radial-gradient(circle at center, hsl(var(--ego-mint) / 0.1), transparent);
-    
+
     /* Morphing Shadows */
     --shadow-soft: 0 4px 6px -1px hsl(var(--ego-mint) / 0.1), 0 2px 4px -1px hsl(var(--ego-mint) / 0.06);
     --shadow-morphing: 0 10px 25px -3px hsl(var(--ego-mint) / 0.3), 0 4px 6px -2px hsl(var(--ego-mint) / 0.15);
@@ -124,6 +124,14 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+  .maplibregl-popup-content {
+    @apply bg-transparent! shadow-none! p-0! rounded-none!;
+    @apply bg-transparent! shadow-none! p-0! rounded-none!;
+  }
+  .maplibregl-popup-tip {
+    @apply hidden!;
+    @apply hidden!;
+  }
 }
 
 /* Professional Animations */
@@ -165,7 +173,6 @@
     transform: translateY(0);
   }
 }
-
 
 @keyframes particle-float {
   0% {
